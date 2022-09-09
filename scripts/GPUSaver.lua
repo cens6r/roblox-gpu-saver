@@ -1,5 +1,9 @@
 _G.GPUSaverEnabled = true
 
+if _G.GPUSaverEnabled ~= nil then
+	return
+end
+
 local CoreGui = game:GetService("CoreGui")
 
 if type(gethui) == 'function' then
@@ -74,4 +78,5 @@ _G.DisableGPUSaver = function()
 	con0:Disconnect()
 	con1:Disconnect()
 	con2:Disconnect()
+	_G.GPUSaverEnabled = false
 end
