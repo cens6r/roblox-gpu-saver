@@ -27,13 +27,16 @@ TextLabel.Parent = ScreenGui
 local Connections = {}
 local Signals = {RunService.Stepped, RunService.RenderStepped}
 
+local cansetfpscap = type(setfpscap) == 'function'
+local cangetconnections = type(getconnections) == 'function'
+
 local function pause()
-	if type(setfpscap) == 'function' then
+	if cansetfpscap then
 		setfpscap(15)
 	end
 	ScreenGui.Enabled = true
 	RunService:Set3dRenderingEnabled(false)
-	if type(getconnections) == 'function' then
+	if cangetconnections then
 		for _, x in pairs(Signals) do
 			for _, v in pairs(getconnections(x)) do
 				v:Disable()
@@ -45,14 +48,16 @@ local function pause()
 end
 
 local function resume()
-	if type(setfpscap) == 'function' then
+	if cansetfpscap then
 		setfpscap(1000)
 	end
 	ScreenGui.Enabled = false
 	RunService:Set3dRenderingEnabled(true)
-	for i, v in pairs(Connections) do
-		v:Enable()
-		Connections[i] = nil
+	if cangetconnections then
+		for i, v in pairs(Connections) do
+			v:Enable()
+			Connections[i] = nil
+		end
 	end
 	paused = false
 end
