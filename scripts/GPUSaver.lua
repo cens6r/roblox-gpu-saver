@@ -21,8 +21,9 @@ TextLabel.TextStrokeTransparency = 1
 TextLabel.AnchorPoint = Vector2.new(.5, .5)
 TextLabel.Position = UDim2.fromScale(.5, .5)
 TextLabel.Size = UDim2.fromScale(1.5, 1.5)
+TextLabel.Font = Enum.Font.RobotoMono
 TextLabel.TextSize = 24
-TextLabel.Text = "GPU Saver is enabled.\n\nPress any key to disable manually.\nTo disable this entirely, run _G:DisableGPUSaver()"
+TextLabel.Text = "GPU Saver is enabled.\n\nPress any key to disable manually.\nTo disable this entirely, run _G.DisableGPUSaver()"
 TextLabel.Parent = ScreenGui
 
 local Connections = {}
@@ -68,7 +69,7 @@ end)
 
 --- Disable the GPU saver.
 --- @type function
-_G.DisableGPUSaver = function(self, ...)
+_G.DisableGPUSaver = function()
 	resume()
 	con0:Disconnect()
 	con1:Disconnect()
