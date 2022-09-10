@@ -29,6 +29,7 @@ local Signals = {RunService.Stepped, RunService.RenderStepped}
 
 local cansetfpscap = type(setfpscap) == 'function'
 local cangetconnections = type(getconnections) == 'function'
+local caniswindowactive = type(iswindowactive) == 'function'
 
 local function pause()
 	if cansetfpscap then
@@ -64,11 +65,11 @@ end
 
 local con0 = UserInputService.WindowFocusReleased:Connect(pause)
 local con1 = UserInputService.WindowFocused:Connect(resume)
-local con2 = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
-	if paused and input.UserInputState == Enum.UserInputState.Begin and input.UserInputType == Enum.UserInputType.Keyboard then
-		resume()
-	end
-end)
+local con2 = UserInputService.InputBegan:Connect(function(input) if paused and input.UserInputState == Enum.UserInputState.Begin and input.UserInputType == Enum.UserInputType.Keyboard then resume(); end; end)
+
+if caniswindowactive and iswindowactive() ~= true then
+	pause()
+end
 
 --- Disable the GPU saver.
 --- @type function
