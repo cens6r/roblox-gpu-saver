@@ -8,7 +8,7 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = 'CPUSaver'
+ScreenGui.Name = 'GPUSaver'
 ScreenGui.Enabled = false
 ScreenGui.Parent = CoreGui
 
@@ -50,7 +50,7 @@ end
 
 local function resume()
 	if cansetfpscap then
-		setfpscap(1000)
+		setfpscap(0)
 	end
 	ScreenGui.Enabled = false
 	RunService:Set3dRenderingEnabled(true)
